@@ -19,11 +19,6 @@ const App = function () {
     .then((result) => result.json())
     .then((res) => setTodos(res))
   };
-    
-  useEffect(() => {
-    fun();
-  }, [handleNewInputChange, handleDelete, handleUpdate])
-
 
   const selectedTodo =
   (selectedTodoId && todos.find((todo) => todo.ref["@ref"].id === selectedTodoId)) ||
@@ -63,6 +58,11 @@ const App = function () {
     }
   }, [isEditMode])
 
+  const handleCancelUpdate = e => {
+    e.preventDefault()
+    setIsEditMode(false)
+  }
+
   const handleUpdate = async (e) => {
     e.preventDefault()
 
@@ -82,11 +82,6 @@ const App = function () {
     fun();
   }
 
-  const handleCancelUpdate = e => {
-    e.preventDefault()
-    setIsEditMode(false)
-  }
-
   const handleToggle = () => {
     if (!selectedTodoId || !selectedTodo) return
   }
@@ -100,6 +95,11 @@ const App = function () {
    fun();
 
   }
+
+  useEffect(() => {
+    fun();
+  }, [handleNewInputChange, handleDelete, handleUpdate])
+
 
   return (
     <div className="App">
